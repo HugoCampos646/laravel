@@ -1,4 +1,5 @@
 @extends('layouts.app')
+IDIOMA ACTUAL: {{ app()->getLocale() }}
 
 @section('title', 'Proyectos')
 

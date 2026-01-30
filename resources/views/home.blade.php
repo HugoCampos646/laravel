@@ -4,28 +4,42 @@
 
 @section('content')
 
+    {{-- USUARIO NO LOGUEADO --}}
     @guest
-        <div class="text-center space-y-4">
-            <h2 class="text-3xl font-bold">Bienvenido</h2>
-            <p>Gestiona usuarios y proyectos fácilmente</p><br>
+        <div class="text-center mt-16 space-y-6">
+            <h1 class="text-4xl font-bold">Bienvenido a la aplicación de gestión</h1>
+            <p class="text-gray-600">Administra alumnos y proyectos fácilmente</p>
 
-            <a href="{{ route('login') }}" class="bg-blue-600 text-white px-4 py-2 rounded">Login</a>
-            <a href="{{ route('register') }}" class="bg-green-600 text-white px-4 py-2 rounded">Registro</a>
+            <div class="space-x-4">
+                <a href="{{ route('login') }}" class="bg-blue-600 text-white px-6 py-3 rounded">Login</a>
+                <a href="{{ route('register') }}" class="bg-green-600 text-white px-6 py-3 rounded">Registrarse</a>
+            </div>
         </div>
     @endguest
 
+
+    {{-- USUARIO LOGUEADO --}}
     @auth
-        <h2 class="text-2xl font-bold mb-4">Panel principal</h2>
+        <div class="mt-10">
+            <h2 class="text-2xl font-bold mb-6">Hola, {{ Auth::user()->name }}</h2>
 
-        <div class="grid grid-cols-2 gap-6">
-            <div class="bg-blue-100 p-4 rounded shadow">
-                <h3 class="font-semibold">Usuarios</h3>
-                <a href="{{ route('users.index') }}" class="text-blue-700">Gestionar</a>
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-            <div class="bg-green-100 p-4 rounded shadow">
-                <h3 class="font-semibold">Proyectos</h3>
-                <a href="#" class="text-green-700">Gestionar</a>
+                <a href="{{ route('users.index') }}" class="bg-white shadow p-6 rounded hover:bg-gray-100">
+                    <h3 class="text-xl font-semibold">Gestión de Usuarios</h3>
+                    <p class="text-gray-500">Administrar usuarios del sistema</p>
+                </a>
+
+                <a href="{{ route('proyectos.index') }}" class="bg-white shadow p-6 rounded hover:bg-gray-100">
+                    <h3 class="text-xl font-semibold">Gestión de Proyectos</h3>
+                    <p class="text-gray-500">Administrar proyectos</p>
+                </a>
+
+                <a href="{{ route('alumnos.index') }}" class="bg-white shadow p-6 rounded hover:bg-gray-100">
+                    <h3 class="text-xl font-semibold">Gestión de Alumnos</h3>
+                    <p class="text-gray-500">Administrar alumnos</p>
+                </a>
+
             </div>
         </div>
     @endauth

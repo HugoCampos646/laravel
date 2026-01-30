@@ -4,6 +4,17 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProyectoController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AlumnoController;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['es','en','fr'])) {
+        session(['locale' => $locale]);
+    }
+    return back();
+})->name('lang.switch');
+
 
 Route::get('/', function () {
     return view('home');
@@ -29,8 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/usuarios/{user}/editar', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/usuarios/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/usuarios/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::resource('alumnos', AlumnoController::class);
 
-    Route::get('/proyectos/{proyecto}', [ProyectoController::class, 'show'])->name('proyectos.show');
 
 
     // 🔥 CRUD PROYECTOS (RESOURCE)
